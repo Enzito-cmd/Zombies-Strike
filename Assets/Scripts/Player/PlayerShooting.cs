@@ -6,33 +6,23 @@ using TMPro;
 public class PlayerShooting : MonoBehaviour
 {
     [Header("References")]
-    public Transform _firePoint;
     public StarterAssetsInputs _input;
-    public TextMeshProUGUI _ammoText; 
-
-    [Header("Settings")]
-    public float _range = 100f;
-    public float _fireRate = 0.2f;
-    private float _nextTimeToFire = 0f;
-
-    [Header("Ammo System")]
-    public int _bulletsInMag = 12;
-    public int _magSize = 12;
-    public int _ammoReserve = 60;
-    public float _reloadTime = 1.5f;
-    private bool _isReloading = false;
-
-    [Header("Visual Feedback")]
-    public GameObject _muzzleFlashPrefab;
+    public TextMeshProUGUI _ammoText;
     public GameObject _impactEffectPrefab;
-    public float _recoilAmount = 0.05f;
+    public GameObject _bloodImpactPrefab;
 
-    [Header("Combat Settings")]
-    public float _damage = 25f;  
-    public GameObject _bloodImpactPrefab; 
+    [Header("Active Weapon (ScriptableObject)")]
+    public WeaponData _currentWeaponData;
+
+    private int _bulletsInMag;
+    private int _ammoReserve;
+    private float _nextTimeToFire = 0f;
+    private bool _isReloading = false;
 
     private Camera _mainCamera;
     private Vector3 _originalWeaponPos;
+    private GameObject _currentWeaponModel;
+    private Transform _dynamicFirePoint;
 
     void Start()
     {
@@ -41,17 +31,53 @@ public class PlayerShooting : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        UpdateAmmoUI(); 
+        if (_currentWeaponData != null)
+        {
+            ChangeWeapon(_currentWeaponData);
+        }
+    }
+
+    public void ChangeWeapon(WeaponData newWeapon)
+    {
+        if (_isReloading) return;
+
+        _currentWeaponData = newWeapon;
+
+        _bulletsInMag = _currentWeaponData._magSize;
+        _ammoReserve = _currentWeaponData._maxReserveAmmo;
+
+        if (_currentWeaponModel != null) Destroy(_currentWeaponModel);
+
+        if (_currentWeaponData._weaponModelPrefab != null)
+        {
+            _currentWeaponModel = Instantiate(_currentWeaponData._weaponModelPrefab, transform);
+            _currentWeaponModel.transform.localPosition = Vector3.zero;
+            _currentWeaponModel.transform.localRotation = Quaternion.identity;
+
+            Transform foundFirePoint = _currentWeaponModel.transform.Find("FirePoint");
+            if (foundFirePoint != null)
+            {
+                _dynamicFirePoint = foundFirePoint;
+            }
+            else
+            {
+                Debug.LogWarning($"Attention! The prefab {_currentWeaponData._weaponName} does not have a child object named 'FirePoint'.");
+                _dynamicFirePoint = transform;
+            }
+        }
+
+        UpdateAmmoUI();
     }
 
     void Update()
     {
-        if (_input == null) return;
+        if (_input == null || _currentWeaponData == null) return;
+
         if (_isReloading)
         {
             _input.shoot = false;
             _input.reload = false;
-            return; 
+            return;
         }
 
         if (_input.shoot && _bulletsInMag <= 0 && _ammoReserve > 0)
@@ -63,9 +89,8 @@ public class PlayerShooting : MonoBehaviour
 
         if (_input.reload)
         {
-            _input.reload = false; 
-
-            if (_bulletsInMag < _magSize && _ammoReserve > 0)
+            _input.reload = false;
+            if (_bulletsInMag < _currentWeaponData._magSize && _ammoReserve > 0)
             {
                 StartCoroutine(Reload());
             }
@@ -73,7 +98,7 @@ public class PlayerShooting : MonoBehaviour
 
         if (_input.shoot && Time.time >= _nextTimeToFire && _bulletsInMag > 0)
         {
-            _nextTimeToFire = Time.time + _fireRate;
+            _nextTimeToFire = Time.time + _currentWeaponData._fireRate;
             Shoot();
             _input.shoot = false;
         }
@@ -87,35 +112,33 @@ public class PlayerShooting : MonoBehaviour
 
     void Shoot()
     {
-        //feedback
         _bulletsInMag--;
-        UpdateAmmoUI(); 
+        UpdateAmmoUI();
 
-        if (AudioManager._instance != null)
+        if (AudioManager._instance != null && _currentWeaponData._shootSound != null)
         {
-            AudioManager._instance.PlaySFX(AudioManager._instance._pistolShot);
+            AudioManager._instance.PlaySFX(_currentWeaponData._shootSound);
         }
 
-        if (_muzzleFlashPrefab != null)
+        if (_currentWeaponData._muzzleFlashPrefab != null && _dynamicFirePoint != null)
         {
-            GameObject _flash = Instantiate(_muzzleFlashPrefab, _firePoint.position, _firePoint.rotation);
-            _flash.transform.SetParent(_firePoint);
+            GameObject _flash = Instantiate(_currentWeaponData._muzzleFlashPrefab, _dynamicFirePoint.position, _dynamicFirePoint.rotation);
+            _flash.transform.SetParent(_dynamicFirePoint);
             _flash.transform.localScale = Vector3.one;
             Destroy(_flash, 0.1f);
         }
 
-        transform.localPosition -= Vector3.forward * _recoilAmount;
+        transform.localPosition -= Vector3.forward * _currentWeaponData._recoilAmount;
 
-        //shooting logic
         Ray ray = _mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, _range))
+        if (Physics.Raycast(ray, out hit, _currentWeaponData._range))
         {
             ZombieHealth _zombie = hit.transform.GetComponent<ZombieHealth>();
 
             if (hit.transform.CompareTag("Enemy") && _zombie != null)
             {
-                _zombie.TakeDamage(_damage);
+                _zombie.TakeDamage(_currentWeaponData._damage);
 
                 if (_bloodImpactPrefab != null)
                 {
@@ -140,8 +163,8 @@ public class PlayerShooting : MonoBehaviour
 
         Vector3 reloadPos = _originalWeaponPos + new Vector3(0, -0.5f, -0.2f);
         float elapsed = 0f;
-        float durationDown = 0.3f; // Lo que tarda en bajar (rápido)
-        float durationUp = 0.6f;   // Lo que tarda en subir (más lento, el doble)
+        float durationDown = 0.3f;
+        float durationUp = 0.6f;
 
         while (elapsed < durationDown)
         {
@@ -150,12 +173,16 @@ public class PlayerShooting : MonoBehaviour
             yield return null;
         }
 
-        if (AudioManager._instance != null && AudioManager._instance._pistolReload != null)
+        if (AudioManager._instance != null && _currentWeaponData._reloadSound != null)
         {
-            AudioManager._instance.PlaySFX(AudioManager._instance._pistolReload);
+            AudioManager._instance.PlaySFX(_currentWeaponData._reloadSound);
         }
 
-        yield return new WaitForSeconds(1.3f);
+        float calculatedWait = _currentWeaponData._reloadTime - (durationDown + durationUp);
+        if (calculatedWait > 0)
+        {
+            yield return new WaitForSeconds(calculatedWait);
+        }
 
         elapsed = 0f;
         while (elapsed < durationUp)
@@ -165,7 +192,7 @@ public class PlayerShooting : MonoBehaviour
             yield return null;
         }
 
-        int bulletsNeeded = _magSize - _bulletsInMag;
+        int bulletsNeeded = _currentWeaponData._magSize - _bulletsInMag;
         int bulletsToAdd = Mathf.Min(bulletsNeeded, _ammoReserve);
         _bulletsInMag += bulletsToAdd;
         _ammoReserve -= bulletsToAdd;
@@ -173,17 +200,12 @@ public class PlayerShooting : MonoBehaviour
         UpdateAmmoUI();
         _isReloading = false;
     }
+
     void UpdateAmmoUI()
     {
         if (_ammoText != null)
         {
             _ammoText.text = _bulletsInMag + " / " + _ammoReserve;
         }
-    }
-    public void MaxAmmo()
-    {
-        _ammoReserve = 120; 
-        _bulletsInMag = _magSize;
-        UpdateAmmoUI();
     }
 }

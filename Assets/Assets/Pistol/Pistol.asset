@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b3907980132fd4fa9d190eb934ed1e, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  _weaponName: Pistol
+  _weaponModelPrefab: {fileID: 1541291843934544343, guid: 6cecd1b033fbbc046a85d12ef26c036b, type: 3}
+  _muzzleFlashPrefab: {fileID: 100000, guid: cdf14baff693fbc439f8c859529a63a6, type: 3}
+  _damage: 25
+  _fireRate: 0.1
+  _range: 75
+  _magSize: 12
+  _maxReserveAmmo: 60
+  _reloadTime: 2
+  _recoilAmount: 0.05
+  _shootSound: {fileID: 8300000, guid: 0fd89fe1529ab5f4b9eea3ed734e3dd5, type: 3}
+  _reloadSound: {fileID: 8300000, guid: 33c35ff0967226d488c7b98abccbc6c6, type: 3}
