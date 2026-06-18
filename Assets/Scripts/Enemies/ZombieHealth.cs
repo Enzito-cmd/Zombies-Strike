@@ -1,28 +1,52 @@
 using UnityEngine;
 
-public class ZombieHealth : MonoBehaviour
+namespace StarterAssets
 {
-    [Header("Settings")]
-    public float _health = 100f;
-
-    private bool _isDead = false;
-
-    public void TakeDamage(float _amount)
+    public class ZombieHealth : MonoBehaviour
     {
-        if (_isDead) return;
+        public float MaxHealth = 100f;
+        private float _currentHealth;
 
-        _health -= _amount;
+        private ZombieAI _zombieAI;
 
-        if (_health <= 0)
+        private void Awake()
         {
-            Die();
+            _zombieAI = GetComponent<ZombieAI>();
         }
-    }
 
-    void Die()
-    {
-        _isDead = true;
+        private void OnEnable()
+        {
+            _currentHealth = MaxHealth;
+        }
 
-        Destroy(gameObject, 0.1f);
+        public void TakeDamage(float damageAmount)
+        {
+            // Si ya está muerto, ignoramos los tiros extra (evita bugs de re-muerte)
+            if (_currentHealth <= 0) return;
+
+            _currentHealth -= damageAmount;
+
+            if (_currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+
+        private void Die()
+        {
+            // ? BORRÁ ESTA LÍNEA SI LA TENÍAS:
+            // Destroy(gameObject);
+
+            //  LA FORMA CORRECTA: Le avisamos al script optimizado de IA que se encargue
+            if (_zombieAI != null)
+            {
+                _zombieAI.TakeDamage();
+            }
+            else
+            {
+                // Plan B por si probás un zombie viejo que no tenga el script ZombieAI
+                Destroy(gameObject);
+            }
+        }
     }
 }
