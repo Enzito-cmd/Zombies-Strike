@@ -25,13 +25,11 @@ namespace StarterAssets
         private bool _isDead = false;
         private float _attackRangeSqr;
 
-        // Animation lock to prevent the zombie from sliding or chasing mid-attack state
         private bool _isAttackingAnimation = false;
 
         private IObjectPool<GameObject> _myPool;
         private WaveManager _waveManager;
 
-        // Optimized Animator Hashes (Avoids costly string lookups during runtime)
         private static readonly int SpeedParam = Animator.StringToHash("Speed");
         private static readonly int AttackTrigger = Animator.StringToHash("Attack");
         private static readonly int DieParam = Animator.StringToHash("Die");
@@ -45,7 +43,6 @@ namespace StarterAssets
 
         private void Start()
         {
-            // Fallback: Autodetect player target if placed manually in the scene context
             if (_playerTransform == null)
             {
                 GameObject playerObj = GameObject.FindWithTag("Player");
@@ -78,12 +75,12 @@ namespace StarterAssets
         public void ResetZombie()
         {
             _isDead = false;
-            _isAttackingAnimation = false; // Ensures lock is cleared when reusing the object
+            _isAttackingAnimation = false; 
 
             if (_agent != null)
             {
                 _agent.enabled = true;
-                _agent.Warp(transform.position); // Hard snap to the closest valid NavMesh position
+                _agent.Warp(transform.position); 
                 _agent.isStopped = false;
             }
 
@@ -100,10 +97,8 @@ namespace StarterAssets
             if (_isDead || _playerTransform == null) return;
             if (!_agent.isOnNavMesh) return;
 
-            // Movement Lock: Completely stops tracking and pathfinding updates during the swipe animation
             if (_isAttackingAnimation) return;
 
-            // Math Optimization: Squared magnitude vector subtraction to completely bypass costly square root ops
             Vector3 directionToPlayer = _playerTransform.position - transform.position;
             float sqrDistance = directionToPlayer.sqrMagnitude;
 
@@ -116,7 +111,6 @@ namespace StarterAssets
                     _isAttackingAnimation = true;
                     if (!_agent.isStopped) _agent.isStopped = true;
 
-                    // Instantly zeroes out velocity to prevent inertia physics sliding ("skating effect")
                     _agent.velocity = Vector3.zero;
 
                     _animator.SetTrigger(AttackTrigger);
@@ -134,7 +128,6 @@ namespace StarterAssets
         {
             float actualSprintChance = SprintChance;
 
-            // Dynamic BO2 Tuning: Automatically increases sprint odds based on the active progression wave
             if (_waveManager != null)
             {
                 actualSprintChance = Mathf.Clamp(SprintChance + (_waveManager.CurrentWave * 0.05f), 0f, 0.9f);
@@ -157,7 +150,6 @@ namespace StarterAssets
             _nextAttackTime = Time.time + AttackCooldown;
         }
 
-        // Triggered via Unity Animation Event framework on the exact frame of the hand impact strike
         public void DealDamage()
         {
             if (_isDead || _playerTransform == null) return;
@@ -165,7 +157,6 @@ namespace StarterAssets
             Vector3 directionToPlayer = _playerTransform.position - transform.position;
             float sqrDistance = directionToPlayer.sqrMagnitude;
 
-            // Dodge Mechanic: Evaluates distance at hit frame
             if (sqrDistance <= _attackRangeSqr)
             {
                 PlayerHealth playerHealth = _playerTransform.GetComponent<PlayerHealth>();
@@ -176,7 +167,6 @@ namespace StarterAssets
             }
         }
 
-        // 2. NEW: Triggered via Animation Event at the VERY END of the attack animation
         public void EndAttack()
         {
             _isAttackingAnimation = false;
@@ -191,7 +181,7 @@ namespace StarterAssets
 
             _animator.SetTrigger(DieParam);
 
-            StartCoroutine(ReturnToPoolAfterDelay(3.5f));
+            StartCoroutine(ReturnToPoolAfterDelay(4f));
         }
 
         private System.Collections.IEnumerator ReturnToPoolAfterDelay(float delay)

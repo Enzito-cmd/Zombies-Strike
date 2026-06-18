@@ -37,22 +37,18 @@ namespace StarterAssets
             _isWaveActive = true;
             ActiveZombiesInScreen = 0;
 
-            // Wave progression math (e.g., Wave 1 = 5, Wave 5 = 5 + (4 * 2) = 13 total zombies)
             TotalZombiesRemainingInWave = BaseZombiesInFirstWave + ((CurrentWave - 1) * ZombiesPerWaveMultiplier);
 
             Debug.Log($"Wave: {CurrentWave}. Horde size: {TotalZombiesRemainingInWave}");
         }
 
-        // OPTIMIZATION: Fast status check used by the Spawner before fetching from the pool
         public bool CanSpawnZombie()
         {
             if (!_isWaveActive || TotalZombiesRemainingInWave <= 0) return false;
 
-            // Calculate dynamic cap for the current wave
             int currentSimultaneousCap = BaseMaxSimultaneousZombies + ((CurrentWave - 1) * MaxSimultaneousIncrementPerWave);
             currentSimultaneousCap = Mathf.Min(currentSimultaneousCap, AbsoluteSimultaneousLimit);
 
-            // Only allow spawn if we haven't reached the screen cap
             return ActiveZombiesInScreen < currentSimultaneousCap;
         }
 
@@ -62,12 +58,10 @@ namespace StarterAssets
             TotalZombiesRemainingInWave--;
         }
 
-        // Called when a zombie completely dies and returns to the pool
         public void RegisterZombieDeath()
         {
             ActiveZombiesInScreen--;
 
-            // If no more zombies are left to spawn and none are active on screen, clear the wave
             if (TotalZombiesRemainingInWave <= 0 && ActiveZombiesInScreen <= 0)
             {
                 EndWave();
@@ -78,8 +72,6 @@ namespace StarterAssets
         {
             _isWaveActive = false;
             CurrentWave++;
-            Debug.Log($"Wave finished. Next wave: {CurrentWave}...");
-
             Invoke(nameof(StartNewWave), 5f);
         }
     }

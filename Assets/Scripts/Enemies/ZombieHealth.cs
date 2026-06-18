@@ -8,10 +8,12 @@ namespace StarterAssets
         private float _currentHealth;
 
         private ZombieAI _zombieAI;
+        private ZombieDissolve _zombieDissolve;
 
         private void Awake()
         {
             _zombieAI = GetComponent<ZombieAI>();
+            _zombieDissolve = GetComponent<ZombieDissolve>();
         }
 
         private void OnEnable()
@@ -21,7 +23,6 @@ namespace StarterAssets
 
         public void TakeDamage(float damageAmount)
         {
-            // Si ya está muerto, ignoramos los tiros extra (evita bugs de re-muerte)
             if (_currentHealth <= 0) return;
 
             _currentHealth -= damageAmount;
@@ -34,18 +35,27 @@ namespace StarterAssets
 
         private void Die()
         {
-            // ? BORRÁ ESTA LÍNEA SI LA TENÍAS:
-            // Destroy(gameObject);
+            Collider zombieCollider = GetComponent<Collider>();
+            if (zombieCollider != null)
+            {
+                zombieCollider.enabled = false;
+            }
 
-            //  LA FORMA CORRECTA: Le avisamos al script optimizado de IA que se encargue
             if (_zombieAI != null)
             {
                 _zombieAI.TakeDamage();
             }
+
+            if (_zombieDissolve != null)
+            {
+                _zombieDissolve.StartDissolve();
+            }
             else
             {
-                // Plan B por si probás un zombie viejo que no tenga el script ZombieAI
-                Destroy(gameObject);
+                if (_zombieAI == null)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
