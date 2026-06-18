@@ -26328,6 +26328,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1354119698127480533, guid: 0379a5ba4801c84478a42f958d955c34, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: dba20d8cbed12354caec5561ef37f8aa, type: 2}
     - target: {fileID: 5945353569316925307, guid: 0379a5ba4801c84478a42f958d955c34, type: 3}
       propertyPath: m_Name
       value: Zombie
