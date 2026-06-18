@@ -297,7 +297,29 @@
             "m_Id": "79fd0f3dc87b4b68bd587f941392b44b"
         }
     ],
-    "m_StickyNoteDatas": [],
+    "m_StickyNoteDatas": [
+        {
+            "m_Id": "370d723111864345a70a989e4dc48a48"
+        },
+        {
+            "m_Id": "b5bfa2739de54dd5a891fb2780ac41d8"
+        },
+        {
+            "m_Id": "cdd40efda39c47e5b8eb1adb9837405d"
+        },
+        {
+            "m_Id": "59cbe7f085a8417e9e16d672110a207f"
+        },
+        {
+            "m_Id": "5236c541867f4fafba4425517b8119d6"
+        },
+        {
+            "m_Id": "ba7a18a588ac4f4c9cbdfd888e7da617"
+        },
+        {
+            "m_Id": "762aa429b41f4e9cbc18e4d900887fd7"
+        }
+    ],
     "m_Edges": [
         {
             "m_OutputSlot": {
@@ -1493,7 +1515,7 @@
     "m_Title": "Waves",
     "m_Position": {
         "x": -4417.0,
-        "y": -372.9999694824219
+        "y": -373.00006103515627
     }
 }
 
@@ -1706,10 +1728,10 @@
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.GroupData",
     "m_ObjectId": "0764d11e699f401d89adda962dc3014c",
-    "m_Title": "Peak Displacement",
+    "m_Title": "Peak Displacement (Pendiente/Horizontal)",
     "m_Position": {
-        "x": -2524.000244140625,
-        "y": -303.0
+        "x": -2524.0,
+        "y": -309.0000305175781
     }
 }
 
@@ -1956,10 +1978,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2229.99951171875,
-            "y": -653.0,
-            "width": 207.9996337890625,
-            "height": 302.0000305175781
+            "x": -2230.0,
+            "y": -657.0,
+            "width": 126.0,
+            "height": 118.0
         }
     },
     "m_Slots": [
@@ -3091,6 +3113,26 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "370d723111864345a70a989e4dc48a48",
+    "m_Title": "",
+    "m_Content": "Acá mueve de arriba a abajo los vértices del plano\n",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -2636.0,
+        "y": 851.0,
+        "width": 91.0,
+        "height": 100.0
+    },
+    "m_Group": {
+        "m_Id": ""
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.TilingAndOffsetNode",
     "m_ObjectId": "3721de1738654246a28be6eb38313f24",
     "m_Group": {
@@ -4056,6 +4098,26 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "5236c541867f4fafba4425517b8119d6",
+    "m_Title": "",
+    "m_Content": "Calcula en qué parte de la ola debería estar cada vértice\n\nPosition → dónde está el vértice.\nDirection → hacia dónde viaja la ola.\nFrequency → qué tan juntas están las olas.\nTime * Speed → cuánto avanzó la ola con el tiempo.\n\nEse resultado se lo pasa al Sine y al Cosine, que son los que dibujan la forma de la ola.",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -4114.0,
+        "y": 320.0,
+        "width": 287.0,
+        "height": 175.0
+    },
+    "m_Group": {
+        "m_Id": "0195fba33cb944a1a0386aceda608f36"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector3Node",
     "m_ObjectId": "52dae881012f485890ba32f5f494e7a3",
     "m_Group": {
@@ -4323,6 +4385,26 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "59cbe7f085a8417e9e16d672110a207f",
+    "m_Title": "",
+    "m_Content": "El Cross Product (producto vectorial) toma dos vectores y devuelve un tercer vector perpendicular a ambos.",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -1472.0,
+        "y": -906.0,
+        "width": 122.0,
+        "height": 136.0
+    },
+    "m_Group": {
+        "m_Id": "b60fcca6e12546319c2d7a8dc6e3a43d"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
     "m_ObjectId": "5bad8b9512804066acc0dafec32d14af",
     "m_Id": 0,
@@ -4585,10 +4667,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -3788.999755859375,
-            "y": 197.99998474121095,
-            "width": 126.0,
-            "height": 76.99995422363281
+            "x": -3791.0,
+            "y": 195.9999542236328,
+            "width": 130.0,
+            "height": 34.00007629394531
         }
     },
     "m_Slots": [
@@ -5470,6 +5552,26 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "SurfaceDescription.Occlusion"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "762aa429b41f4e9cbc18e4d900887fd7",
+    "m_Title": "",
+    "m_Content": "Usamos un combine para crear un vector 4 que solo afecta en el eje Y por más que haya información en los otros ejes.",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -1920.0,
+        "y": 490.0,
+        "width": 134.000244140625,
+        "height": 114.0
+    },
+    "m_Group": {
+        "m_Id": "9620580fc6864b6db091632530ce5f85"
+    }
 }
 
 {
@@ -6876,10 +6978,10 @@
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.GroupData",
     "m_ObjectId": "9620580fc6864b6db091632530ce5f85",
-    "m_Title": "Wave Displacement",
+    "m_Title": "Wave Displacement (Altura/Vertical)",
     "m_Position": {
-        "x": -2584.000244140625,
-        "y": 512.9999389648438
+        "x": -2584.0,
+        "y": 431.0
     }
 }
 
@@ -6895,10 +6997,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1231.9996337890625,
-            "y": -769.0,
-            "width": 207.999755859375,
-            "height": 278.00006103515627
+            "x": -1232.0,
+            "y": -767.0,
+            "width": 208.0,
+            "height": 278.0
         }
     },
     "m_Slots": [
@@ -7425,10 +7527,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2558.999755859375,
-            "y": 599.9999389648438,
+            "x": -2559.0,
+            "y": 599.0000610351563,
             "width": 208.0,
-            "height": 278.00006103515627
+            "height": 278.0
         }
     },
     "m_Slots": [
@@ -7741,12 +7843,32 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "b5bfa2739de54dd5a891fb2780ac41d8",
+    "m_Title": "",
+    "m_Content": "Multiplicamos la altura y la frecuencia ya que para calcular las normales del plano debe tener en cuenta los valores que tiene en ese momento el mismo",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -2318.0,
+        "y": -465.0,
+        "width": 143.0,
+        "height": 127.0
+    },
+    "m_Group": {
+        "m_Id": "b60fcca6e12546319c2d7a8dc6e3a43d"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.GroupData",
     "m_ObjectId": "b60fcca6e12546319c2d7a8dc6e3a43d",
     "m_Title": "Calculate Normals Waves",
     "m_Position": {
-        "x": -2628.000244140625,
-        "y": -935.0
+        "x": -2628.0,
+        "y": -995.0000610351563
     }
 }
 
@@ -7929,6 +8051,26 @@
     "m_EnumValues": [
         0
     ]
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "ba7a18a588ac4f4c9cbdfd888e7da617",
+    "m_Title": "",
+    "m_Content": "Usamos un combine para crear un vector 4 que solo afecta en el eje X y Z por más que haya información en los otros ejes.",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -1538.0,
+        "y": -250.0,
+        "width": 159.1097412109375,
+        "height": 102.96342468261719
+    },
+    "m_Group": {
+        "m_Id": "0764d11e699f401d89adda962dc3014c"
+    }
 }
 
 {
@@ -8581,6 +8723,26 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "cdd40efda39c47e5b8eb1adb9837405d",
+    "m_Title": "",
+    "m_Content": "Define como es la mesh cuando está completamente plana",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -1793.0,
+        "y": -936.0,
+        "width": 99.0,
+        "height": 100.0
+    },
+    "m_Group": {
+        "m_Id": "b60fcca6e12546319c2d7a8dc6e3a43d"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicValueMaterialSlot",
     "m_ObjectId": "ce621c04158d4a23944bfdc94ce059bf",
     "m_Id": 1,
@@ -8886,8 +9048,8 @@
     "m_ObjectId": "d9e8189b4b4c491c858bdcef630de793",
     "m_Title": "Depth Fade",
     "m_Position": {
-        "x": -2818.000244140625,
-        "y": 960.9999389648438
+        "x": -2818.0,
+        "y": 961.0000610351563
     }
 }
 
