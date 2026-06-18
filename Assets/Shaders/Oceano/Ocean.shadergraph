@@ -318,6 +318,9 @@
         },
         {
             "m_Id": "762aa429b41f4e9cbc18e4d900887fd7"
+        },
+        {
+            "m_Id": "d3631de3e0eb4a9f95a572d84476acff"
         }
     ],
     "m_Edges": [
@@ -1514,8 +1517,8 @@
     "m_ObjectId": "0195fba33cb944a1a0386aceda608f36",
     "m_Title": "Waves",
     "m_Position": {
-        "x": -4417.0,
-        "y": -373.00006103515627
+        "x": -4416.99951171875,
+        "y": -373.0
     }
 }
 
@@ -1730,8 +1733,8 @@
     "m_ObjectId": "0764d11e699f401d89adda962dc3014c",
     "m_Title": "Peak Displacement (Pendiente/Horizontal)",
     "m_Position": {
-        "x": -2524.0,
-        "y": -309.0000305175781
+        "x": -2523.99951171875,
+        "y": -308.9998779296875
     }
 }
 
@@ -1978,8 +1981,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2230.0,
-            "y": -657.0,
+            "x": -2221.0,
+            "y": -662.0,
             "width": 126.0,
             "height": 118.0
         }
@@ -2717,10 +2720,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2037.9996337890625,
-            "y": -655.0,
-            "width": 207.999755859375,
-            "height": 302.00006103515627
+            "x": -2028.0,
+            "y": -662.0,
+            "width": 126.0,
+            "height": 118.0
         }
     },
     "m_Slots": [
@@ -4128,10 +4131,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1706.999755859375,
-            "y": -875.9999389648438,
-            "width": 127.9998779296875,
-            "height": 124.99993896484375
+            "x": -1698.0,
+            "y": -881.0,
+            "width": 128.0,
+            "height": 125.0
         }
     },
     "m_Slots": [
@@ -4393,8 +4396,8 @@
     "m_Theme": 0,
     "m_Position": {
         "serializedVersion": "2",
-        "x": -1472.0,
-        "y": -906.0,
+        "x": -1463.0,
+        "y": -911.0,
         "width": 122.0,
         "height": 136.0
     },
@@ -5684,8 +5687,8 @@
     "m_ObjectId": "79fd0f3dc87b4b68bd587f941392b44b",
     "m_Title": "Espuma",
     "m_Position": {
-        "x": -3745.000244140625,
-        "y": 2154.0
+        "x": -3744.99951171875,
+        "y": 2153.999755859375
     }
 }
 
@@ -5874,10 +5877,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1794.9998779296875,
-            "y": -9.000093460083008,
-            "width": 208.0001220703125,
-            "height": 302.0000305175781
+            "x": -1802.9998779296875,
+            "y": -16.999988555908204,
+            "width": 208.0,
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -6659,10 +6662,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -924.9999389648438,
-            "y": -768.9999389648438,
-            "width": 212.00006103515626,
-            "height": 338.99993896484377
+            "x": -926.0,
+            "y": -770.0,
+            "width": 212.0,
+            "height": 339.0
         }
     },
     "m_Slots": [
@@ -6724,9 +6727,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1710.9998779296875,
-            "y": -688.0,
-            "width": 128.000244140625,
+            "x": -1702.0,
+            "y": -693.0,
+            "width": 128.0,
             "height": 125.0
         }
     },
@@ -6980,8 +6983,8 @@
     "m_ObjectId": "9620580fc6864b6db091632530ce5f85",
     "m_Title": "Wave Displacement (Altura/Vertical)",
     "m_Position": {
-        "x": -2584.0,
-        "y": 431.0
+        "x": -2583.99951171875,
+        "y": 431.0001220703125
     }
 }
 
@@ -6997,8 +7000,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1232.0,
-            "y": -767.0,
+            "x": -1223.0,
+            "y": -772.0,
             "width": 208.0,
             "height": 278.0
         }
@@ -7851,8 +7854,8 @@
     "m_Theme": 0,
     "m_Position": {
         "serializedVersion": "2",
-        "x": -2318.0,
-        "y": -465.0,
+        "x": -2309.0,
+        "y": -470.0,
         "width": 143.0,
         "height": 127.0
     },
@@ -7867,8 +7870,8 @@
     "m_ObjectId": "b60fcca6e12546319c2d7a8dc6e3a43d",
     "m_Title": "Calculate Normals Waves",
     "m_Position": {
-        "x": -2628.0,
-        "y": -995.0000610351563
+        "x": -2618.99951171875,
+        "y": -999.9999389648438
     }
 }
 
@@ -8182,10 +8185,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2602.999755859375,
-            "y": -661.0,
-            "width": 207.999755859375,
-            "height": 278.00006103515627
+            "x": -2594.0,
+            "y": -666.0,
+            "width": 208.0,
+            "height": 278.0
         }
     },
     "m_Slots": [
@@ -8692,10 +8695,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1477.999755859375,
-            "y": -767.0,
-            "width": 208.0001220703125,
-            "height": 302.0000305175781
+            "x": -1469.0,
+            "y": -772.0,
+            "width": 208.0,
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -8731,8 +8734,8 @@
     "m_Theme": 0,
     "m_Position": {
         "serializedVersion": "2",
-        "x": -1793.0,
-        "y": -936.0,
+        "x": -1784.0,
+        "y": -941.0,
         "width": 99.0,
         "height": 100.0
     },
@@ -8896,6 +8899,26 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "d3631de3e0eb4a9f95a572d84476acff",
+    "m_Title": "",
+    "m_Content": "Detecta qué tan de frente mira una superficie a una dirección",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -3979.0,
+        "y": -202.0,
+        "width": 113.0,
+        "height": 86.0
+    },
+    "m_Group": {
+        "m_Id": "0195fba33cb944a1a0386aceda608f36"
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "d43929c062da427698a01bd13e20fe5a",
     "m_Group": {
@@ -9048,8 +9071,8 @@
     "m_ObjectId": "d9e8189b4b4c491c858bdcef630de793",
     "m_Title": "Depth Fade",
     "m_Position": {
-        "x": -2818.0,
-        "y": 961.0000610351563
+        "x": -2817.99951171875,
+        "y": 960.999755859375
     }
 }
 
@@ -9188,8 +9211,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2385.0,
-            "y": -517.0000610351563,
+            "x": -2376.0,
+            "y": -522.0,
             "width": 138.0,
             "height": 34.0
         }
