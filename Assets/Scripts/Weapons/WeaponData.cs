@@ -5,8 +5,8 @@ public class WeaponData : ScriptableObject
 {
     [Header("Visual Info")]
     public string _weaponName;
-    public GameObject _weaponModelPrefab; // El Prefab del modelo 3D de la skin del arma
-    public GameObject _muzzleFlashPrefab; // El destello de la bala (corregido)
+    public GameObject _weaponModelPrefab; 
+    public GameObject _muzzleFlashPrefab; 
 
     [Header("Stats")]
     public float _damage = 25f;

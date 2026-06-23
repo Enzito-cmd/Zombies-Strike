@@ -61,7 +61,6 @@ public class PlayerShooting : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning($"Attention! The prefab {_currentWeaponData._weaponName} does not have a child object named 'FirePoint'.");
                 _dynamicFirePoint = transform;
             }
         }
@@ -206,6 +205,15 @@ public class PlayerShooting : MonoBehaviour
         if (_ammoText != null)
         {
             _ammoText.text = _bulletsInMag + " / " + _ammoReserve;
+        }
+    }
+    public void RefillMaxAmmo()
+    {
+        if (_currentWeaponData != null)
+        {
+            _ammoReserve = _currentWeaponData._maxReserveAmmo;
+
+            UpdateAmmoUI();
         }
     }
 }

@@ -2810,7 +2810,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9e7ee38c5daa146bcbd2d02ea92cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieHealth
-  MaxHealth: 100
+  MaxHealth: 25
 --- !u!195 &165991871042172839
 NavMeshAgent:
   m_ObjectHideFlags: 0

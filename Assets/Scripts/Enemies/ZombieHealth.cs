@@ -4,21 +4,40 @@ namespace StarterAssets
 {
     public class ZombieHealth : MonoBehaviour
     {
+        [Header("Health Settings")]
         public float MaxHealth = 100f;
         private float _currentHealth;
 
+        [Header("Rewards")]
+        [SerializeField]
+        private int _scoreReward = 50;
+
         private ZombieAI _zombieAI;
         private ZombieDissolve _zombieDissolve;
+        private Collider _zombieCollider;
+
+        private PlayerScore _playerScore; 
 
         private void Awake()
         {
             _zombieAI = GetComponent<ZombieAI>();
             _zombieDissolve = GetComponent<ZombieDissolve>();
+            _zombieCollider = GetComponent<Collider>();
+        }
+
+        public void ConfigureHealthDependencies(PlayerScore playerScoreReference)
+        {
+            _playerScore = playerScoreReference;
         }
 
         private void OnEnable()
         {
             _currentHealth = MaxHealth;
+
+            if (_zombieCollider != null)
+            {
+                _zombieCollider.enabled = true;
+            }
         }
 
         public void TakeDamage(float damageAmount)
@@ -35,10 +54,14 @@ namespace StarterAssets
 
         private void Die()
         {
-            Collider zombieCollider = GetComponent<Collider>();
-            if (zombieCollider != null)
+            if (_zombieCollider != null)
             {
-                zombieCollider.enabled = false;
+                _zombieCollider.enabled = false;
+            }
+
+            if (_playerScore != null)
+            {
+                _playerScore.AddPoints(_scoreReward);
             }
 
             if (_zombieAI != null)

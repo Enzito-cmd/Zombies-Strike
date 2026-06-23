@@ -1,27 +1,30 @@
 using UnityEngine;
+using TMPro;
 
 namespace StarterAssets
 {
     public class WaveManager : MonoBehaviour
     {
+        [Header("Main UI")]
+        public TextMeshProUGUI WaveTextUI;
+
+        [Header("Bomb Event")]
+        public GameObject BombPrefab;
+        public Transform[] BombSpawnPoints;
+
         [Header("Current Status")]
         public int CurrentWave = 1;
         public int TotalZombiesRemainingInWave;
         public int ActiveZombiesInScreen;
 
         [Header("Wave Balance")]
-        [Tooltip("Total amount of zombies that will spawn during first wave")]
         public int BaseZombiesInFirstWave = 5;
-        [Tooltip("How many extra zombies are added to the total pool per wave.")]
         public int ZombiesPerWaveMultiplier = 2;
 
         [Header("Simultaneous Caps")]
-        [Tooltip("Maximum amount of zombies allowed alive at the exact same time during first wave")]
         public int BaseMaxSimultaneousZombies = 4;
-        [Tooltip("How many extra simultaneous slots are unlocked per wave.")]
         public int MaxSimultaneousIncrementPerWave = 1;
-        [Tooltip("The absolute simultaneous limit of active zombies")]
-        public int AbsoluteSimultaneousLimit = 24;
+        public int SimultaneousLimit = 24;
 
         private ZombieSpawner _spawner;
         private bool _isWaveActive = false;
@@ -39,7 +42,21 @@ namespace StarterAssets
 
             TotalZombiesRemainingInWave = BaseZombiesInFirstWave + ((CurrentWave - 1) * ZombiesPerWaveMultiplier);
 
-            Debug.Log($"Wave: {CurrentWave}. Horde size: {TotalZombiesRemainingInWave}");
+            UpdateUI();
+
+            if (CurrentWave == 2 && BombPrefab != null && BombSpawnPoints.Length > 0)
+            {
+                int randomPoint = Random.Range(0, BombSpawnPoints.Length);
+                Transform spawnPoint = BombSpawnPoints[randomPoint];
+
+                GameObject plantedBomb = Instantiate(BombPrefab, spawnPoint.position, spawnPoint.rotation);
+                Bomb bombScript = plantedBomb.GetComponent<Bomb>();
+
+                if (bombScript != null)
+                {
+                    bombScript.ActivateBomb();
+                }
+            }
         }
 
         public bool CanSpawnZombie()
@@ -47,7 +64,7 @@ namespace StarterAssets
             if (!_isWaveActive || TotalZombiesRemainingInWave <= 0) return false;
 
             int currentSimultaneousCap = BaseMaxSimultaneousZombies + ((CurrentWave - 1) * MaxSimultaneousIncrementPerWave);
-            currentSimultaneousCap = Mathf.Min(currentSimultaneousCap, AbsoluteSimultaneousLimit);
+            currentSimultaneousCap = Mathf.Min(currentSimultaneousCap, SimultaneousLimit);
 
             return ActiveZombiesInScreen < currentSimultaneousCap;
         }
@@ -73,6 +90,14 @@ namespace StarterAssets
             _isWaveActive = false;
             CurrentWave++;
             Invoke(nameof(StartNewWave), 5f);
+        }
+
+        private void UpdateUI()
+        {
+            if (WaveTextUI != null)
+            {
+                WaveTextUI.text = CurrentWave.ToString();
+            }
         }
     }
 }
