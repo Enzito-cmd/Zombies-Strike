@@ -5,30 +5,23 @@ namespace StarterAssets
 {
     public class PlayerInteraction : MonoBehaviour
     {
-        [Header("Interaction Settings")]
         public float InteractionDistance = 3f;
         public Camera MainCamera;
-
-        [Header("HUD UI")]
-        [Tooltip("Text that appears when looking at something")]
         public TextMeshProUGUI InteractionPromptText;
 
-        private StarterAssetsInputs _input;
-        private PlayerScore _playerScore;
+        public bool IsVirtualButtonPressed;
 
-        private void Awake()
+        public void SetVirtualInteract(bool state)
         {
-            _input = GetComponent<StarterAssetsInputs>();
-            _playerScore = GetComponent<PlayerScore>();
+            IsVirtualButtonPressed = state;
         }
 
         private void Update()
         {
-            if (MainCamera == null || _input == null) return;
+            if (MainCamera == null) return;
 
             Ray ray = MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
             RaycastHit hit;
-
             bool lookingAtInteractable = false;
 
             if (Physics.Raycast(ray, out hit, InteractionDistance))
@@ -36,37 +29,42 @@ namespace StarterAssets
                 if (hit.collider.CompareTag("Bomb"))
                 {
                     lookingAtInteractable = true;
-                    if (InteractionPromptText != null)
-                    {
-                        InteractionPromptText.text = "Hold [E]";
-                    }
 
-                    if (_input.interact)
+                    if (IsVirtualButtonPressed)
                     {
                         Bomb bomb = hit.collider.GetComponent<Bomb>();
-                        if (bomb != null)
-                        {
-                            bomb.ReceiveDefuseInput();
-                        }
+                        if (bomb != null) bomb.ReceiveDefuseInput();
                     }
                 }
                 else if (hit.collider.CompareTag("WallBuy"))
                 {
-                    MaxAmmo wallBuy = hit.collider.GetComponent<MaxAmmo>();
-                    if (wallBuy != null)
-                    {
-                        lookingAtInteractable = true;
+                    lookingAtInteractable = true;
 
+                    MaxAmmo ammoBuy = hit.collider.GetComponent<MaxAmmo>();
+                    if (ammoBuy != null)
+                    {
+                        if (InteractionPromptText != null) InteractionPromptText.text = ammoBuy.GetPromptMessage();
+
+                        if (IsVirtualButtonPressed)
+                        {
+                            ammoBuy.BuyMaxAmmo(GetComponent<PlayerScore>(), gameObject);
+                            IsVirtualButtonPressed = false;
+                        }
+                    }
+
+                    WallWeaponBuy weaponBuy = hit.collider.GetComponent<WallWeaponBuy>();
+                    if (weaponBuy != null)
+                    {
                         if (InteractionPromptText != null)
                         {
-                            InteractionPromptText.text = wallBuy.GetPromptMessage();
+                            PlayerShooting playerShooting = gameObject.GetComponentInChildren<PlayerShooting>();
+                            InteractionPromptText.text = weaponBuy.GetPromptMessage(playerShooting);
                         }
 
-                        if (_input.interact)
+                        if (IsVirtualButtonPressed)
                         {
-                            wallBuy.BuyMaxAmmo(_playerScore, gameObject);
-
-                            _input.interact = false;
+                            weaponBuy.Interact(gameObject);
+                            IsVirtualButtonPressed = false;
                         }
                     }
                 }

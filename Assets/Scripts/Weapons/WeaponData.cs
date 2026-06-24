@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "Shooter/Weapon Data")]
 public class WeaponData : ScriptableObject
 {
+    [Header("UI")]
+    public Sprite _weaponIcon;
+
     [Header("Visual Info")]
     public string _weaponName;
     public GameObject _weaponModelPrefab; 
@@ -12,6 +15,7 @@ public class WeaponData : ScriptableObject
     public float _damage = 25f;
     public float _fireRate = 0.2f;
     public float _range = 100f;
+    public bool _isAutomatic = false;
 
     [Header("Ammo")]
     public int _magSize = 12;

@@ -13,7 +13,7 @@ namespace StarterAssets
 
         public string GetPromptMessage()
         {
-            return $"Press [E] to buy ammo [{_ammoCost}]";
+            return $"Press [Interact] to buy ammo [{_ammoCost}]";
         }
 
         public void BuyMaxAmmo(PlayerScore playerScore, GameObject playerObject)

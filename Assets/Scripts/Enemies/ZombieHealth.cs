@@ -6,6 +6,7 @@ namespace StarterAssets
     {
         [Header("Health Settings")]
         public float MaxHealth = 100f;
+        private float _originalMaxHealth; 
         private float _currentHealth;
 
         [Header("Rewards")]
@@ -16,13 +17,15 @@ namespace StarterAssets
         private ZombieDissolve _zombieDissolve;
         private Collider _zombieCollider;
 
-        private PlayerScore _playerScore; 
+        private PlayerScore _playerScore;
 
         private void Awake()
         {
             _zombieAI = GetComponent<ZombieAI>();
             _zombieDissolve = GetComponent<ZombieDissolve>();
             _zombieCollider = GetComponent<Collider>();
+
+            _originalMaxHealth = MaxHealth;
         }
 
         public void ConfigureHealthDependencies(PlayerScore playerScoreReference)
@@ -38,6 +41,16 @@ namespace StarterAssets
             {
                 _zombieCollider.enabled = true;
             }
+        }
+
+        public void ApplyDifficultyBonus(int currentRound)
+        {
+            int bonusLevel = Mathf.Min(currentRound / 5, 5);
+
+            float bonusHealth = bonusLevel * 25f;
+
+            MaxHealth = _originalMaxHealth + bonusHealth;
+            _currentHealth = MaxHealth;
         }
 
         public void TakeDamage(float damageAmount)
@@ -82,4 +95,4 @@ namespace StarterAssets
             }
         }
     }
-}
+} 

@@ -31,6 +31,8 @@ namespace StarterAssets
 
         private void Start()
         {
+            Application.targetFrameRate = 60;
+
             _spawner = GetComponent<ZombieSpawner>();
             StartNewWave();
         }
@@ -44,14 +46,19 @@ namespace StarterAssets
 
             UpdateUI();
 
-            if (CurrentWave == 2 && BombPrefab != null && BombSpawnPoints.Length > 0)
+            if (CurrentWave > 0 && CurrentWave % 3 == 0 && BombPrefab != null && BombSpawnPoints.Length > 0)
             {
                 int randomPoint = Random.Range(0, BombSpawnPoints.Length);
                 Transform spawnPoint = BombSpawnPoints[randomPoint];
 
                 GameObject plantedBomb = Instantiate(BombPrefab, spawnPoint.position, spawnPoint.rotation);
-                Bomb bombScript = plantedBomb.GetComponent<Bomb>();
 
+                if (OffScreenIndicator.Instance != null)
+                {
+                    OffScreenIndicator.Instance.SetTarget(plantedBomb.transform);
+                }
+
+                Bomb bombScript = plantedBomb.GetComponent<Bomb>();
                 if (bombScript != null)
                 {
                     bombScript.ActivateBomb();

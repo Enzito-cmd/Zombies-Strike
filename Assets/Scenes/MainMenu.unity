@@ -876,6 +876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScenesManager
   _loadingScreen: {fileID: 1402215797}
   _progressBar: {fileID: 1677477429}
+  _gameOverPanel: {fileID: 0}
 --- !u!4 &774270392
 Transform:
   m_ObjectHideFlags: 0

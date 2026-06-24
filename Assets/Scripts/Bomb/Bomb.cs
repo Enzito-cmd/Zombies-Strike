@@ -102,6 +102,14 @@ namespace StarterAssets
         {
             _isBombActive = false;
             if (BombUIPanel != null) BombUIPanel.SetActive(false);
+            if (OffScreenIndicator.Instance != null)
+            {
+                OffScreenIndicator.Instance.SetTarget(null);
+            }
+            if (ScenesManager.Instance != null)
+            {
+                ScenesManager.Instance.TriggerGameOver();
+            }
         }
     }
 }

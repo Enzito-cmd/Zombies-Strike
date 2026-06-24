@@ -249,34 +249,12 @@
                 },
                 {
                     "name": "",
-                    "id": "cbae64af-be94-45f5-81c2-1c24d143a6c3",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "fa262b40-7c75-4103-9866-f0fa116c09bd",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Reload",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c567eaa0-ecb4-45c9-863a-6c1ff5741275",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

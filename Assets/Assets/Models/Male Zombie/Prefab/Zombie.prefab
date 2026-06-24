@@ -2811,6 +2811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieHealth
   MaxHealth: 25
+  _scoreReward: 25
 --- !u!195 &165991871042172839
 NavMeshAgent:
   m_ObjectHideFlags: 0
