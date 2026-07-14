@@ -39,6 +39,8 @@ namespace StarterAssets
             _agent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
             _attackRangeSqr = AttackRange * AttackRange;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true; 
         }
 
         private void Start()

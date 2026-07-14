@@ -35,27 +35,25 @@ public class UIVirtualJoystick : MonoBehaviour, IPointerDownHandler, IDragHandle
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        containerRect.position = eventData.position;
+
+        UpdateHandleRectPosition(Vector2.zero);
+
         OnDrag(eventData);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-
         RectTransformUtility.ScreenPointToLocalPointInRectangle(containerRect, eventData.position, eventData.pressEventCamera, out Vector2 position);
-        
-        position = ApplySizeDelta(position);
-        
-        Vector2 clampedPosition = ClampValuesToMagnitude(position);
 
-        Vector2 outputPosition = ApplyInversionFilter(position);
+        Vector2 clampedPosition = Vector2.ClampMagnitude(position, joystickRange);
 
-        OutputPointerEventValue(outputPosition * magnitudeMultiplier);
+        UpdateHandleRectPosition(clampedPosition);
 
-        if(handleRect)
-        {
-            UpdateHandleRectPosition(clampedPosition * joystickRange);
-        }
-        
+        Vector2 outputValue = clampedPosition / joystickRange;
+
+        Vector2 finalOutput = ApplyInversionFilter(outputValue);
+        OutputPointerEventValue(finalOutput * magnitudeMultiplier);
     }
 
     public void OnPointerUp(PointerEventData eventData)
