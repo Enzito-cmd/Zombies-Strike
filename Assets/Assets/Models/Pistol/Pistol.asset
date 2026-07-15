@@ -24,5 +24,5 @@ MonoBehaviour:
   _maxReserveAmmo: 60
   _reloadTime: 2
   _recoilAmount: 0.05
-  _shootSound: {fileID: 8300000, guid: 0fd89fe1529ab5f4b9eea3ed734e3dd5, type: 3}
-  _reloadSound: {fileID: 8300000, guid: 33c35ff0967226d488c7b98abccbc6c6, type: 3}
+  _shootSound: {fileID: 8300000, guid: 9a9f1edc0b5e2714f8a6356ab9379bb0, type: 3}
+  _reloadSound: {fileID: 8300000, guid: 449c314ecc549e94196a016411b15729, type: 3}
