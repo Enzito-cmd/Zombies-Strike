@@ -14,7 +14,6 @@ namespace StarterAssets
         private int _scoreReward = 50;
 
         private ZombieAI _zombieAI;
-        private ZombieDissolve _zombieDissolve;
         private Collider _zombieCollider;
 
         private PlayerScore _playerScore;
@@ -22,7 +21,6 @@ namespace StarterAssets
         private void Awake()
         {
             _zombieAI = GetComponent<ZombieAI>();
-            _zombieDissolve = GetComponent<ZombieDissolve>();
             _zombieCollider = GetComponent<Collider>();
 
             _originalMaxHealth = MaxHealth;
@@ -80,11 +78,6 @@ namespace StarterAssets
             if (_zombieAI != null)
             {
                 _zombieAI.TakeDamage();
-            }
-
-            if (_zombieDissolve != null)
-            {
-                _zombieDissolve.StartDissolve();
             }
             else
             {
