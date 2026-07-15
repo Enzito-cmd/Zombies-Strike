@@ -30,12 +30,10 @@ namespace StarterAssets
 
         [Header("Post Processing Max Intensities")]
         [Range(0f, 1f)] public float MaxVignetteIntensity = 0.65f;
-        public float MaxChromaticAberrationIntensity = 5.0f;
 
         private float _currentStamina;
         private bool _isExhausted = false;
         private Vignette _vignette;
-        private ChromaticAberration _chromaticAberration;
 
         [Space(10)]
         public float JumpHeight = 1.2f;
@@ -114,7 +112,6 @@ namespace StarterAssets
             if (PostProcessVolume != null && PostProcessVolume.profile != null)
             {
                 PostProcessVolume.profile.TryGet(out _vignette);
-                PostProcessVolume.profile.TryGet(out _chromaticAberration);
             }
         }
 
@@ -172,16 +169,10 @@ namespace StarterAssets
                 {
                     _vignette.intensity.value = Mathf.Lerp(0f, MaxVignetteIntensity, fatigueIntensity);
                 }
-
-                if (_chromaticAberration != null)
-                {
-                    _chromaticAberration.intensity.value = Mathf.Lerp(0f, MaxChromaticAberrationIntensity, fatigueIntensity);
-                }
             }
             else
             {
                 if (_vignette != null) _vignette.intensity.value = Mathf.Lerp(_vignette.intensity.value, 0f, Time.deltaTime * 5f);
-                if (_chromaticAberration != null) _chromaticAberration.intensity.value = Mathf.Lerp(_chromaticAberration.intensity.value, 0f, Time.deltaTime * 5f);
             }
         }
 
@@ -193,17 +184,17 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
-            if (_input.look.sqrMagnitude >= _threshold)
+            if (_input.look.sqrMagnitude >= 0.01f) 
             {
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+                float sensitivity = 50.0f; 
 
-                _cinemachineTargetPitch += _input.look.y * RotationSpeed * deltaTimeMultiplier;
-                _rotationVelocity = _input.look.x * RotationSpeed * deltaTimeMultiplier;
-
+                _cinemachineTargetPitch += _input.look.y * sensitivity * Time.deltaTime;
                 _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
                 CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
-                transform.Rotate(Vector3.up * _rotationVelocity);
+
+                float yaw = _input.look.x * sensitivity * Time.deltaTime;
+                transform.Rotate(Vector3.up * yaw);
             }
         }
 

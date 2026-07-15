@@ -120,7 +120,6 @@ public class PlayerShooting : MonoBehaviour
         {
             _currentWeaponModel = Instantiate(_currentWeaponData._weaponModelPrefab, transform);
             _currentWeaponModel.transform.localPosition = Vector3.zero;
-            _currentWeaponModel.transform.localRotation = Quaternion.identity;
 
             Transform foundFirePoint = _currentWeaponModel.transform.Find("FirePoint");
             _dynamicFirePoint = foundFirePoint != null ? foundFirePoint : transform;
