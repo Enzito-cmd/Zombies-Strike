@@ -1517,7 +1517,7 @@
     "m_ObjectId": "0195fba33cb944a1a0386aceda608f36",
     "m_Title": "Waves",
     "m_Position": {
-        "x": -4416.99951171875,
+        "x": -4417.0,
         "y": -373.0
     }
 }
@@ -1733,8 +1733,8 @@
     "m_ObjectId": "0764d11e699f401d89adda962dc3014c",
     "m_Title": "Peak Displacement (Pendiente/Horizontal)",
     "m_Position": {
-        "x": -2523.99951171875,
-        "y": -308.9998779296875
+        "x": -2524.0,
+        "y": -309.0
     }
 }
 
@@ -5687,8 +5687,8 @@
     "m_ObjectId": "79fd0f3dc87b4b68bd587f941392b44b",
     "m_Title": "Espuma",
     "m_Position": {
-        "x": -3744.99951171875,
-        "y": 2153.999755859375
+        "x": -3745.0,
+        "y": 2154.0
     }
 }
 
@@ -6983,8 +6983,8 @@
     "m_ObjectId": "9620580fc6864b6db091632530ce5f85",
     "m_Title": "Wave Displacement (Altura/Vertical)",
     "m_Position": {
-        "x": -2583.99951171875,
-        "y": 431.0001220703125
+        "x": -2584.0,
+        "y": 431.0
     }
 }
 
@@ -7870,8 +7870,8 @@
     "m_ObjectId": "b60fcca6e12546319c2d7a8dc6e3a43d",
     "m_Title": "Calculate Normals Waves",
     "m_Position": {
-        "x": -2618.99951171875,
-        "y": -999.9999389648438
+        "x": -2619.0,
+        "y": -1000.0
     }
 }
 
@@ -9071,8 +9071,8 @@
     "m_ObjectId": "d9e8189b4b4c491c858bdcef630de793",
     "m_Title": "Depth Fade",
     "m_Position": {
-        "x": -2817.99951171875,
-        "y": 960.999755859375
+        "x": -2818.0,
+        "y": 961.0
     }
 }
 
