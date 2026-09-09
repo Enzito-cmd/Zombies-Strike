@@ -18,12 +18,16 @@ namespace StarterAssets
         public float WalkSpeed = 1.3f;
         public float SprintSpeed = 3.8f;
 
+        [Header("Pathfinding Performance")]
+        public float PathUpdateInterval = 0.2f;
+
         private Transform _playerTransform;
         private NavMeshAgent _agent;
         private Animator _animator;
         private float _nextAttackTime;
         private bool _isDead = false;
         private float _attackRangeSqr;
+        private float _nextPathUpdateTime;
 
         private bool _isAttackingAnimation = false;
 
@@ -39,8 +43,6 @@ namespace StarterAssets
             _agent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
             _attackRangeSqr = AttackRange * AttackRange;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true; 
         }
 
         private void Start()
@@ -77,16 +79,20 @@ namespace StarterAssets
         public void ResetZombie()
         {
             _isDead = false;
-            _isAttackingAnimation = false; 
+            _isAttackingAnimation = false;
 
             if (_agent != null)
             {
                 _agent.enabled = true;
-                _agent.Warp(transform.position); 
+                _agent.Warp(transform.position);
                 _agent.isStopped = false;
             }
 
             DetermineZombieSpeed();
+
+            // Stagger the first repath per-zombie so pooled zombies spawned on the
+            // same frame don't all recalculate their NavMesh path together.
+            _nextPathUpdateTime = Time.time + Random.value * PathUpdateInterval;
 
             if (_playerTransform != null && _agent.enabled && _agent.isOnNavMesh)
             {
@@ -122,7 +128,12 @@ namespace StarterAssets
             else
             {
                 if (_agent.isStopped) _agent.isStopped = false;
-                _agent.SetDestination(_playerTransform.position);
+
+                if (Time.time >= _nextPathUpdateTime)
+                {
+                    _nextPathUpdateTime = Time.time + PathUpdateInterval;
+                    _agent.SetDestination(_playerTransform.position);
+                }
             }
         }
 

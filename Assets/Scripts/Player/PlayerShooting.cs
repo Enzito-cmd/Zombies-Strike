@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.Pool;
 using UnityEngine.UI;
 
 [System.Serializable]
@@ -39,9 +40,15 @@ public class PlayerShooting : MonoBehaviour
     private GameObject _currentWeaponModel;
     private Transform _dynamicFirePoint;
     private PlayerInput _playerInput;
+    private InputAction _shootAction;
 
     private GameObject _currentMuzzleFlashInstance;
     private Coroutine _flashCoroutine;
+
+    [Header("VFX Pooling")]
+    public float EffectLifetime = 1f;
+    private IObjectPool<GameObject> _impactPool;
+    private IObjectPool<GameObject> _bloodPool;
 
     public bool IsShootingButtonPressed;
     public void SetVirtualShoot(bool state) { IsShootingButtonPressed = state; }
@@ -51,10 +58,17 @@ public class PlayerShooting : MonoBehaviour
         _mainCamera = Camera.main;
         _originalWeaponPos = transform.localPosition;
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
         _playerInput = GetComponentInParent<PlayerInput>();
+        if (_playerInput != null)
+        {
+            _shootAction = _playerInput.actions["Shoot"];
+        }
+
+        _impactPool = CreateEffectPool(_impactEffectPrefab);
+        _bloodPool = CreateEffectPool(_bloodImpactPrefab);
 
         if (_inventory.Count > 0 && _inventory[0].data != null)
         {
@@ -153,9 +167,9 @@ public class PlayerShooting : MonoBehaviour
 
         bool isHoldingShoot = (_input != null && _input.shoot) || IsShootingButtonPressed;
 
-        if (_playerInput != null && _currentWeaponData._isAutomatic)
+        if (_shootAction != null && _currentWeaponData._isAutomatic)
         {
-            isHoldingShoot |= _playerInput.actions["Shoot"].IsPressed();
+            isHoldingShoot |= _shootAction.IsPressed();
         }
 
         if (isHoldingShoot && _bulletsInMag <= 0 && _ammoReserve > 0)
@@ -216,18 +230,46 @@ public class PlayerShooting : MonoBehaviour
             if (hit.transform.CompareTag("Enemy") && _zombie != null)
             {
                 _zombie.TakeDamage(_currentWeaponData._damage);
-                if (_bloodImpactPrefab != null)
-                {
-                    GameObject _blood = Instantiate(_bloodImpactPrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                    Destroy(_blood, 1f);
-                }
+                SpawnPooledEffect(_bloodPool, hit.point, hit.normal);
             }
-            else if (_impactEffectPrefab != null)
+            else
             {
-                GameObject _impact = Instantiate(_impactEffectPrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(_impact, 1f);
+                SpawnPooledEffect(_impactPool, hit.point, hit.normal);
             }
         }
+    }
+
+    private IObjectPool<GameObject> CreateEffectPool(GameObject prefab)
+    {
+        if (prefab == null) return null;
+
+        IObjectPool<GameObject> pool = null;
+        pool = new ObjectPool<GameObject>(
+            createFunc: () =>
+            {
+                GameObject instance = Instantiate(prefab);
+                instance.AddComponent<PooledParticle>().Initialize(pool);
+                instance.SetActive(false);
+                return instance;
+            },
+            actionOnGet: (instance) => instance.SetActive(true),
+            actionOnRelease: (instance) => instance.SetActive(false),
+            actionOnDestroy: (instance) => Destroy(instance),
+            collectionCheck: false,
+            defaultCapacity: 10,
+            maxSize: 30
+        );
+
+        return pool;
+    }
+
+    private void SpawnPooledEffect(IObjectPool<GameObject> pool, Vector3 position, Vector3 normal)
+    {
+        if (pool == null) return;
+
+        GameObject instance = pool.Get();
+        instance.transform.SetPositionAndRotation(position, Quaternion.LookRotation(normal));
+        instance.GetComponent<PooledParticle>().ScheduleReturn(EffectLifetime);
     }
 
     private IEnumerator ShowMuzzleFlashSprite()
@@ -301,7 +343,9 @@ public class PlayerShooting : MonoBehaviour
     }
     public void VirtualReloadInput()
     {
-        if (!_isReloading && _bulletsInMag < _currentWeaponData._magSize && _ammoReserve > 0)
+        if (_currentWeaponData == null || _isReloading) return;
+
+        if (_bulletsInMag < _currentWeaponData._magSize && _ammoReserve > 0)
         {
             StartCoroutine(Reload());
         }

@@ -96,6 +96,12 @@ namespace StarterAssets
                 zombieScript.ResetZombie();
             }
 
+            ZombieHealth healthScript = zombie.GetComponent<ZombieHealth>();
+            if (healthScript != null)
+            {
+                healthScript.ApplyDifficultyBonus(_waveManager.CurrentWave);
+            }
+
             _waveManager.RegisterZombieSpawn();
         }
 

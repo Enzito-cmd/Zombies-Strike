@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 621332306539099880}
   - component: {fileID: 7338777537965718993}
   - component: {fileID: 4553353396111030322}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: BGWhite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 1418958280433795686}
   - component: {fileID: 1923250580266986292}
   - component: {fileID: 4070563475515934249}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bomb
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1619012649832858446}
   - component: {fileID: 5323933832406874788}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 5629770268155509596}
   - component: {fileID: 914987963862169535}
   - component: {fileID: 5087828785163151046}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: BGBlack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3740026785304864676}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: BombUIPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -381,7 +381,7 @@ GameObject:
   - component: {fileID: 3547098844861300266}
   - component: {fileID: 3787850431626424388}
   - component: {fileID: 8123824367465654699}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -482,7 +482,7 @@ GameObject:
   - component: {fileID: 4834203852332015195}
   - component: {fileID: 6598550531576139687}
   - component: {fileID: 340052379460119772}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: DefuseProgressBarBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 9186120306026227530}
   - component: {fileID: 6912959410637094500}
   - component: {fileID: 239715192676699365}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: BombTimer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -695,7 +695,7 @@ GameObject:
   - component: {fileID: 2163934953000923670}
   - component: {fileID: 3949929568018221916}
   - component: {fileID: 573437244093427656}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -785,7 +785,7 @@ GameObject:
   - component: {fileID: 5988142181728113307}
   - component: {fileID: 873726489536393134}
   - component: {fileID: 7894461991991717754}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: DefuseProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

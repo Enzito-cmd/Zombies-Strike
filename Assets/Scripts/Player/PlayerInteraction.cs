@@ -8,8 +8,14 @@ namespace StarterAssets
         public float InteractionDistance = 3f;
         public Camera MainCamera;
         public TextMeshProUGUI InteractionPromptText;
+        public LayerMask InteractableLayers = ~0;
+
+        [Header("Performance")]
+        public float CheckInterval = 0.1f;
 
         public bool IsVirtualButtonPressed;
+
+        private float _nextCheckTime;
 
         public void SetVirtualInteract(bool state)
         {
@@ -19,12 +25,15 @@ namespace StarterAssets
         private void Update()
         {
             if (MainCamera == null) return;
+            if (Time.time < _nextCheckTime) return;
+
+            _nextCheckTime = Time.time + CheckInterval;
 
             Ray ray = MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
             RaycastHit hit;
             bool lookingAtInteractable = false;
 
-            if (Physics.Raycast(ray, out hit, InteractionDistance))
+            if (Physics.Raycast(ray, out hit, InteractionDistance, InteractableLayers))
             {
                 if (hit.collider.CompareTag("Bomb"))
                 {
